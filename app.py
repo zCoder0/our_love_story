@@ -892,4 +892,4 @@ async def get_love_meter(request: Request):
 if __name__ == "__main__":
     import uvicorn
     print("Starting Love Album server with fun features...")
-    uvicorn.run(app, host="127.0.0.1", port=2108)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
