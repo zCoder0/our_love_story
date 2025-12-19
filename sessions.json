@@ -1,0 +1,32 @@
+{
+  "sessions": {
+    "9efa99047d25d22e025d2a47caa0dd0bd8c2e81c051efa1f3fc387740e1e4d57": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-18T22:30:15.846490"
+    },
+    "a975520a48df7b179f532c572f90d5304fbe8f793909f843389f669ef3fa74f2": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-18T23:08:45.159778"
+    },
+    "22a9db41e7047cdf782907bff41211aa2a67569a84ef0a0de3c236ec88d3f010": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-18T23:10:26.228212"
+    },
+    "75ce4e85e6a665df81fb79c9a2e663b30c1d90e9c537ed26855de59799ba6ad7": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-18T23:11:54.396020"
+    },
+    "7c7707b7f7e925c0090035a56a606b968ab6ecf13c9c7e52d318073eb31fbd6a": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-18T23:12:48.499547"
+    },
+    "b6d6ba30c7f52052d28a646294e51a254a4956d20482f4c8dac7ee990b313ba8": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-19T10:42:28.887256"
+    },
+    "02a60463b760d6660b1084604e4f8ad5edf09d1c7423328203844baf2831dc16": {
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "created_at": "2025-12-19T12:53:00.475686"
+    }
+  }
+}

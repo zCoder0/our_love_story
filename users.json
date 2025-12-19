@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "a295e28b-bfaa-4052-8227-171cbb55f7d1",
+      "username": "PremNisha",
+      "email": "premnisha@email.com",
+      "password": "e813dd6533803bf85d76e67f6401a76f7ae9c0c1c033da9d250d234c77dadf2a",
+      "partner1": "Prem ",
+      "partner2": "Nisha",
+      "anniversary": "2025-01-14",
+      "created_at": "2025-12-18T22:29:50.122296",
+      "profile_image": "a295e28b-bfaa-4052-8227-171cbb55f7d1.jpeg"
+    }
+  ]
+}

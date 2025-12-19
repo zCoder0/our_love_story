@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Forever - Love Album</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-heart"></i>
+      <span>Our Forever</span>
+    </div>
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="current-user-indicator" id="current-user-indicator">
+        <i class="fas fa-user"></i> User
+      </div>
+      <button class="upload-btn">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>Upload</span>
+      </button>
+      <button class="logout-btn" id="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="floating-hearts" id="hearts-container"></div>
+
+    <div class="hero-content">
+      <div class="couple-frame" id="couple-frame">
+        <div class="frame-border"></div>
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=400&fit=crop" alt="Couple" class="couple-img" id="couple-img">
+        <label class="profile-upload-btn" for="profile-input">
+          <i class="fas fa-camera"></i>
+        </label>
+        <input type="file" id="profile-input" accept="image/*" hidden>
+      </div>
+      <h1 class="hero-title">Our Love Story</h1>
+      <p class="hero-subtitle">Every moment with you is a treasure worth keeping forever</p>
+      <div class="date-badge">
+        <i class="fas fa-calendar-heart"></i>
+        <span>Together since <strong id="anniversary-date">January 14, 2025</strong></span>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-number" data-count="1825">0</span>
+          <span class="stat-label">Days Together</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="248">0</span>
+          <span class="stat-label">Photos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="42">0</span>
+          <span class="stat-label">Videos</span>
+        </div>
+      </div>
+      <div class="love-quote-card" id="love-quote-card">
+        <i class="fas fa-quote-left quote-icon"></i>
+        <p class="love-quote" id="daily-quote">"Being deeply loved by someone gives you strength, while loving someone deeply gives you courage."</p>
+        <span class="quote-author">- Lao Tzu</span>
+      </div>
+      <a href="#gallery" class="scroll-btn">
+        <span>Explore Memories</span>
+        <i class="fas fa-chevron-down"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Memory of the Day Section -->
+  <section class="memory-of-day-section">
+    <div class="memory-of-day-container" id="memory-of-day">
+      <div class="memory-sparkles">
+        <i class="fas fa-sparkles"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-sparkles"></i>
+      </div>
+      <h3>✨ Memory of the Day ✨</h3>
+      <div class="memory-card" id="daily-memory">
+        <div class="memory-placeholder">
+          <i class="fas fa-heart"></i>
+          <p>Loading today's special memory...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery Section -->
+  <section id="gallery" class="gallery-section">
+    <div class="section-header">
+      <span class="section-tag">Memories</span>
+      <h2>Our Photo Gallery</h2>
+      <p>Captured moments that tell our beautiful story</p>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="dates">Dates</button>
+      <button class="filter-btn" data-filter="travel">Travel</button>
+      <button class="filter-btn" data-filter="special">Special Days</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item large" data-category="dates">
+        <img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&h=800&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Feb 14, 2024</span>
+            <h4>Valentine's Dinner</h4>
+            <p>Our special evening together</p>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+            <button class="action-btn"><i class="fas fa-download"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="travel">
+        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Jul 20, 2023</span>
+            <h4>Beach Sunset</h4>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="special">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Jan 15, 2024</span>
+            <h4>Anniversary</h4>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="dates">
+        <img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=400&h=400&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Mar 8, 2024</span>
+            <h4>Coffee Date</h4>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="travel">
+        <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=400&h=600&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Aug 12, 2023</span>
+            <h4>Mountain Hike</h4>
+            <p>Adventures together</p>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="special">
+        <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&h=400&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Dec 25, 2023</span>
+            <h4>Christmas Together</h4>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="dates">
+        <img src="https://images.unsplash.com/photo-1522264437300-3c0bacda77d2?w=400&h=400&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Sep 5, 2023</span>
+            <h4>Movie Night</h4>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item wide" data-category="travel">
+        <img src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=800&h=400&fit=crop" alt="Memory">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <span class="memory-date"><i class="far fa-calendar"></i> Jun 15, 2023</span>
+            <h4>Paris Trip</h4>
+            <p>The city of love</p>
+          </div>
+          <div class="overlay-actions">
+            <button class="action-btn"><i class="fas fa-heart"></i></button>
+            <button class="action-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="load-more-btn">
+      <i class="fas fa-plus"></i> Load More Photos
+    </button>
+  </section>
+
+  <!-- Video Section -->
+  <section id="videos" class="videos-section">
+    <div class="section-header light">
+      <span class="section-tag">Moments in Motion</span>
+      <h2>Our Video Memories</h2>
+      <p>Relive our favorite moments together</p>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card featured">
+        <div class="video-thumbnail">
+          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&h=450&fit=crop" alt="Video">
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+          <span class="video-duration">3:45</span>
+        </div>
+        <div class="video-info">
+          <h4>Our First Trip Together</h4>
+          <p>The beginning of many adventures</p>
+          <div class="video-meta">
+            <span><i class="far fa-calendar"></i> March 2023</span>
+            <span><i class="far fa-heart"></i> Favorite</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=225&fit=crop" alt="Video">
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+          <span class="video-duration">2:18</span>
+        </div>
+        <div class="video-info">
+          <h4>Cooking Together</h4>
+          <div class="video-meta">
+            <span><i class="far fa-calendar"></i> Nov 2023</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=225&fit=crop" alt="Video">
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+          <span class="video-duration">5:32</span>
+        </div>
+        <div class="video-info">
+          <h4>Sunset at the Beach</h4>
+          <div class="video-meta">
+            <span><i class="far fa-calendar"></i> Jul 2023</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=225&fit=crop" alt="Video">
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+          <span class="video-duration">8:15</span>
+        </div>
+        <div class="video-info">
+          <h4>Birthday Surprise</h4>
+          <div class="video-meta">
+            <span><i class="far fa-calendar"></i> Apr 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=400&h=225&fit=crop" alt="Video">
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+          <span class="video-duration">1:45</span>
+        </div>
+        <div class="video-info">
+          <h4>Rainy Day Vibes</h4>
+          <div class="video-meta">
+            <span><i class="far fa-calendar"></i> Oct 2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fun Features Section -->
+  <section class="fun-features-section">
+    <div class="section-header">
+      <span class="section-tag">Fun Zone</span>
+      <h2>Love Playground</h2>
+      <p>Express your love in fun ways!</p>
+    </div>
+    
+    <div class="fun-features-grid">
+      <!-- Love Meter -->
+      <div class="fun-card love-meter-card">
+        <div class="fun-card-header">
+          <i class="fas fa-heart-pulse"></i>
+          <h3>Love Meter</h3>
+        </div>
+        <div class="love-meter" id="love-meter">
+          <div class="meter-bar">
+            <div class="meter-fill" id="meter-fill"></div>
+          </div>
+          <div class="meter-score" id="meter-score">0%</div>
+          <p class="meter-text">Relationship Strength</p>
+        </div>
+      </div>
+      
+      <!-- Virtual Kisses -->
+      <div class="fun-card kiss-card">
+        <div class="fun-card-header">
+          <i class="fas fa-kiss-wink-heart"></i>
+          <h3>Send Kiss</h3>
+        </div>
+        <div class="kiss-buttons">
+          <button class="kiss-btn prem" data-to="nisha">
+            <i class="fas fa-kiss"></i> Kiss Nisha
+          </button>
+          <button class="kiss-btn nisha" data-to="prem">
+            <i class="fas fa-kiss"></i> Kiss Prem
+          </button>
+        </div>
+        <div class="kiss-counter" id="kiss-counter">💋 0 kisses today</div>
+      </div>
+      
+      <!-- Mood Tracker -->
+      <div class="fun-card mood-card">
+        <div class="fun-card-header">
+          <i class="fas fa-smile-beam"></i>
+          <h3>Today's Mood</h3>
+        </div>
+        <div class="mood-selector">
+          <button class="mood-btn" data-mood="😍" title="In Love">😍</button>
+          <button class="mood-btn" data-mood="😊" title="Happy">😊</button>
+          <button class="mood-btn" data-mood="🥰" title="Loving">🥰</button>
+          <button class="mood-btn" data-mood="😘" title="Flirty">😘</button>
+          <button class="mood-btn" data-mood="🤗" title="Cuddly">🤗</button>
+          <button class="mood-btn" data-mood="😴" title="Sleepy">😴</button>
+        </div>
+        <div class="current-moods" id="current-moods">
+          <!-- Current moods will be displayed here -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Love Notes Section -->
+  <section class="love-notes-section">
+    <div class="section-header">
+      <span class="section-tag">Sweet Messages</span>
+      <h2>Love Notes</h2>
+      <p>Leave sweet messages for each other</p>
+      <button class="add-note-btn" id="add-note-btn">
+        <i class="fas fa-heart"></i> Write Love Note
+      </button>
+    </div>
+    <div class="love-notes-grid" id="love-notes-grid">
+      <!-- Love notes will be loaded here -->
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section id="timeline" class="timeline-section">
+    <div class="section-header">
+      <span class="section-tag">Our Journey</span>
+      <h2>Love Timeline</h2>
+      <p>The milestones of our relationship</p>
+      <button class="add-timeline-btn" id="add-timeline-btn">
+        <i class="fas fa-plus"></i> Add Milestone
+      </button>
+    </div>
+
+    <div class="timeline" id="timeline-container">
+      <!-- Timeline items will be loaded dynamically -->
+    </div>
+    <div class="timeline-empty" id="timeline-empty" style="display: none;">
+      <i class="fas fa-heart"></i>
+      <p>No milestones yet. Add your first memory!</p>
+    </div>
+  </section>
+
+  <!-- Love Notes Modal -->
+  <div class="love-note-modal" id="love-note-modal">
+    <div class="love-note-modal-content">
+      <button class="modal-close" id="love-note-modal-close"><i class="fas fa-times"></i></button>
+      <div class="upload-header">
+        <i class="fas fa-heart"></i>
+        <h3>Write a Love Note</h3>
+        <p>Leave a sweet message for your partner</p>
+      </div>
+      <form id="love-note-form">
+        <div class="option-group">
+          <label>Your Message *</label>
+          <textarea id="love-note-message" placeholder="Write something sweet..." rows="4" required></textarea>
+        </div>
+        <div class="option-group">
+          <label>Choose Note Color</label>
+          <div class="color-picker">
+            <input type="radio" name="note-color" value="pink" id="color-pink" checked>
+            <label for="color-pink" class="color-option pink"></label>
+            <input type="radio" name="note-color" value="purple" id="color-purple">
+            <label for="color-purple" class="color-option purple"></label>
+            <input type="radio" name="note-color" value="blue" id="color-blue">
+            <label for="color-blue" class="color-option blue"></label>
+            <input type="radio" name="note-color" value="green" id="color-green">
+            <label for="color-green" class="color-option green"></label>
+          </div>
+        </div>
+        <button type="submit" class="upload-submit-btn">
+          <i class="fas fa-heart"></i> Send Love Note
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Timeline Modal -->
+  <div class="timeline-modal" id="timeline-modal">
+    <div class="timeline-modal-content">
+      <button class="modal-close" id="timeline-modal-close"><i class="fas fa-times"></i></button>
+      <div class="upload-header">
+        <i class="fas fa-heart"></i>
+        <h3>Add a Milestone</h3>
+        <p>Mark a special moment in your journey</p>
+      </div>
+      <form id="timeline-form">
+        <div class="option-group">
+          <label>Event Title *</label>
+          <input type="text" id="timeline-title" placeholder="e.g., First Date, Anniversary" required>
+        </div>
+        <div class="option-group">
+          <label>Date *</label>
+          <input type="date" id="timeline-date" required>
+        </div>
+        <div class="option-group">
+          <label>Description</label>
+          <textarea id="timeline-description" placeholder="Tell the story of this moment..." rows="3"></textarea>
+        </div>
+        <div class="option-group">
+          <label>Photo (Optional)</label>
+          <div class="timeline-photo-upload" id="timeline-photo-upload">
+            <input type="file" id="timeline-photo-input" accept="image/*" hidden>
+            <div class="photo-preview" id="timeline-photo-preview">
+              <i class="fas fa-image"></i>
+              <span>Click to add a photo</span>
+            </div>
+            <img id="timeline-photo-img" src="" alt="Preview" style="display: none;">
+            <button type="button" class="remove-photo-btn" id="remove-timeline-photo" style="display: none;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="upload-submit-btn">
+          <i class="fas fa-plus"></i> Add Milestone
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-heart">
+        <i class="fas fa-heart"></i>
+      </div>
+      <p class="footer-quote">"In all the world, there is no heart for me like yours."</p>
+      <p class="footer-credit">Made with love for us</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close"><i class="fas fa-times"></i></button>
+    <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-content">
+      <img src="" alt="Full size" id="lightbox-img">
+    </div>
+  </div>
+
+  <!-- User Selection Modal -->
+  <div class="user-selection-modal" id="user-selection-modal">
+    <div class="user-selection-content">
+      <div class="upload-header">
+        <i class="fas fa-heart"></i>
+        <h3>Who's using the app?</h3>
+        <p>Select your identity to personalize your experience</p>
+      </div>
+      <div class="user-options">
+        <button class="user-option prem" data-user="prem">
+          <i class="fas fa-crown"></i>
+          <span>Prem</span>
+        </button>
+        <button class="user-option nisha" data-user="nisha">
+          <i class="fas fa-heart"></i>
+          <span>Nisha</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="upload-modal" id="upload-modal">
+    <div class="upload-modal-content">
+      <button class="modal-close" id="upload-modal-close"><i class="fas fa-times"></i></button>
+      <div class="upload-header">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <h3>Upload New Memories</h3>
+        <p>Add photos or videos to your album</p>
+      </div>
+      <div class="upload-dropzone" id="dropzone">
+        <i class="fas fa-images"></i>
+        <p>Drag & drop your files here</p>
+        <span>or</span>
+        <button class="browse-btn">Browse Files</button>
+        <input type="file" id="file-input" multiple accept="image/*,video/*" hidden>
+      </div>
+      <div class="upload-options">
+        <div class="option-group">
+          <label>Category</label>
+          <select>
+            <option>Select category</option>
+            <option>Dates</option>
+            <option>Travel</option>
+            <option>Special Days</option>
+          </select>
+        </div>
+        <div class="option-group">
+          <label>Add a caption</label>
+          <input type="text" placeholder="Write something sweet...">
+        </div>
+      </div>
+      <button class="upload-submit-btn">
+        <i class="fas fa-heart"></i> Save Memory
+      </button>
+    </div>
+  </div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

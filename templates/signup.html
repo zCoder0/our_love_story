@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Our Forever</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1920&h=1080&fit=crop') center/cover;
+      opacity: 0.1;
+    }
+
+    .floating-hearts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: rgba(231, 76, 60, 0.3);
+      animation: float-up linear infinite;
+    }
+
+    @keyframes float-up {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .auth-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .auth-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .auth-logo i {
+      font-size: 2.5rem;
+      color: #e74c3c;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .auth-logo span {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .auth-header p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group i.icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 16px 18px 16px 50px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-group input:focus {
+      border-color: #e74c3c;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .form-group input:focus ~ i.icon {
+      color: #e74c3c;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .form-row .form-group input {
+      padding-left: 18px;
+    }
+
+    .password-strength {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .password-strength .strength-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .password-strength .strength-bar.weak { width: 33%; background: #e74c3c; }
+    .password-strength .strength-bar.medium { width: 66%; background: #f39c12; }
+    .password-strength .strength-bar.strong { width: 100%; background: #2ecc71; }
+
+    .strength-text {
+      font-size: 0.8rem;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .auth-footer p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+    }
+
+    .auth-footer a {
+      color: #ff6b6b;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .auth-footer a:hover {
+      color: #e74c3c;
+    }
+
+    .error-message {
+      background: rgba(231, 76, 60, 0.2);
+      border: 1px solid rgba(231, 76, 60, 0.3);
+      border-radius: 10px;
+      padding: 12px 15px;
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .error-message.show {
+      display: flex;
+    }
+
+    .success-message {
+      background: rgba(46, 204, 113, 0.2);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      border-radius: 10px;
+      padding: 12px 15px;
+      color: #2ecc71;
+      font-size: 0.9rem;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .success-message.show {
+      display: flex;
+    }
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .terms input {
+      accent-color: #e74c3c;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+    }
+
+    .terms a {
+      color: #ff6b6b;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 40px 25px;
+      }
+
+      .auth-logo span {
+        font-size: 1.6rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" id="hearts-container"></div>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <i class="fas fa-heart"></i>
+          <span>Our Forever</span>
+        </div>
+        <p>Create your couple album account</p>
+      </div>
+
+      <form class="auth-form" id="signup-form">
+        <div class="error-message" id="error-msg">
+          <i class="fas fa-exclamation-circle"></i>
+          <span></span>
+        </div>
+
+        <div class="success-message" id="success-msg">
+          <i class="fas fa-check-circle"></i>
+          <span></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="partner1" name="partner1" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" id="partner2" name="partner2" placeholder="Partner's Name" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="username" name="username" placeholder="Username" required>
+          <i class="fas fa-user icon"></i>
+        </div>
+
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder="Email Address" required>
+          <i class="fas fa-envelope icon"></i>
+        </div>
+
+        <div class="form-group">
+          <input type="password" id="password" name="password" placeholder="Password" required minlength="6">
+          <i class="fas fa-lock icon"></i>
+          <div class="password-strength">
+            <div class="strength-bar" id="strength-bar"></div>
+          </div>
+          <div class="strength-text" id="strength-text"></div>
+        </div>
+
+        <div class="form-group">
+          <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required>
+          <i class="fas fa-lock icon"></i>
+        </div>
+
+        <div class="form-group">
+          <input type="date" id="anniversary" name="anniversary" placeholder="Anniversary Date" style="padding-left: 18px;">
+        </div>
+
+        <label class="terms">
+          <input type="checkbox" name="terms" required>
+          <span>I agree to keep our love story safe and cherish these memories forever</span>
+        </label>
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <i class="fas fa-heart"></i>
+          Create Our Album
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a href="/login">Sign In</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Floating hearts
+    const heartsContainer = document.getElementById('hearts-container');
+
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = '♥';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (15 + Math.random() * 20) + 'px';
+      heart.style.animationDuration = (8 + Math.random() * 7) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 15000);
+    }
+
+    setInterval(createFloatingHeart, 800);
+
+    // Password strength checker
+    const passwordInput = document.getElementById('password');
+    const strengthBar = document.getElementById('strength-bar');
+    const strengthText = document.getElementById('strength-text');
+
+    passwordInput.addEventListener('input', () => {
+      const password = passwordInput.value;
+      let strength = 0;
+
+      if (password.length >= 6) strength++;
+      if (password.length >= 10) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+      strengthBar.className = 'strength-bar';
+
+      if (password.length === 0) {
+        strengthText.textContent = '';
+      } else if (strength <= 2) {
+        strengthBar.classList.add('weak');
+        strengthText.textContent = 'Weak password';
+      } else if (strength <= 3) {
+        strengthBar.classList.add('medium');
+        strengthText.textContent = 'Medium strength';
+      } else {
+        strengthBar.classList.add('strong');
+        strengthText.textContent = 'Strong password';
+      }
+    });
+
+    // Signup form
+    const signupForm = document.getElementById('signup-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        errorMsg.querySelector('span').textContent = 'Passwords do not match';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+      submitBtn.disabled = true;
+      errorMsg.classList.remove('show');
+      successMsg.classList.remove('show');
+
+      try {
+        const formData = new FormData(signupForm);
+
+        const response = await fetch('/api/signup', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          successMsg.querySelector('span').textContent = 'Account created! Redirecting to login...';
+          successMsg.classList.add('show');
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 1500);
+        } else {
+          errorMsg.querySelector('span').textContent = data.message || 'Signup failed';
+          errorMsg.classList.add('show');
+          submitBtn.innerHTML = '<i class="fas fa-heart"></i> Create Our Album';
+          submitBtn.disabled = false;
+        }
+      } catch (error) {
+        errorMsg.querySelector('span').textContent = 'Something went wrong. Please try again.';
+        errorMsg.classList.add('show');
+        submitBtn.innerHTML = '<i class="fas fa-heart"></i> Create Our Album';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

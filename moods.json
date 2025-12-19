@@ -1,0 +1,22 @@
+{
+  "moods": [
+    {
+      "id": "eba6fa89-66dc-4eac-80ca-7e1654eaefc6",
+      "mood": "\ud83d\ude0a",
+      "message": "",
+      "author": "prem",
+      "date": "2025-12-19",
+      "created_at": "2025-12-19T13:11:46.101131",
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1"
+    },
+    {
+      "id": "0de1362e-bfd3-42b8-b21b-4d871e876038",
+      "mood": "\ud83e\udd70",
+      "message": "",
+      "author": "nisha",
+      "date": "2025-12-19",
+      "created_at": "2025-12-19T13:15:01.866140",
+      "user_id": "a295e28b-bfaa-4052-8227-171cbb55f7d1"
+    }
+  ]
+}
