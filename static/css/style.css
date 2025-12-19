@@ -1136,12 +1136,14 @@ h1, h2, h3, h4 {
   box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
 }
 
-/* ===== Responsive Design ===== */
+/* ===== Desktop Responsive Design ===== */
+
+/* Tablet and up (768px+) */
 @media (min-width: 768px) {
   .navbar {
     padding: 20px 40px;
   }
-  
+
   .nav-links {
     display: flex;
     position: static;
@@ -1151,43 +1153,429 @@ h1, h2, h3, h4 {
     flex-direction: row;
     gap: 30px;
   }
-  
+
   .mobile-menu-toggle {
     display: none;
   }
-  
+
+  .hero {
+    padding: 140px 60px 80px;
+    min-height: 100vh;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+
+  .couple-frame {
+    width: 220px;
+    height: 220px;
+  }
+
+  .stats-row {
+    gap: 60px;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 0 40px;
+    gap: 25px;
+    padding: 0 60px;
   }
-  
+
   .video-grid {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
-    padding: 0 40px;
+    padding: 0 60px;
+  }
+
+  .section-header {
+    padding: 80px 60px 50px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+  }
+
+  .section-header p {
+    font-size: 1.1rem;
+  }
+
+  /* Fun Features Desktop */
+  .fun-features-section {
+    padding: 80px 60px;
+  }
+
+  .fun-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .fun-card {
+    padding: 30px;
+  }
+
+  /* Love Notes Desktop */
+  .love-notes-section {
+    padding: 80px 60px;
+  }
+
+  .love-notes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Timeline Desktop */
+  .timeline-section {
+    padding: 80px 60px;
+  }
+
+  .timeline {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Anniversary Countdown Desktop */
+  .anniversary-countdown-section {
+    padding: 60px;
+  }
+
+  .countdown-container {
+    padding: 50px;
+    max-width: 700px;
+  }
+
+  .countdown-timer {
+    gap: 25px;
+  }
+
+  .countdown-item {
+    padding: 25px 35px;
+    min-width: 100px;
+  }
+
+  .countdown-number {
+    font-size: 3rem;
+  }
+
+  .countdown-label {
+    font-size: 0.85rem;
+  }
+
+  /* Memory of Day Desktop */
+  .memory-of-day-section {
+    padding: 60px;
+  }
+
+  .memory-of-day-container {
+    max-width: 600px;
+    padding: 40px;
+  }
+
+  /* Modals Desktop */
+  .upload-modal-content,
+  .timeline-modal-content,
+  .love-note-modal-content {
+    max-width: 550px;
+    padding: 40px;
+    border-radius: 25px;
+  }
+
+  .upload-dropzone {
+    padding: 50px;
+  }
+
+  /* Footer Desktop */
+  .footer {
+    padding: 60px;
   }
 }
 
+/* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .navbar {
-    padding: 20px 60px;
+    padding: 20px 80px;
   }
-  
+
+  .hero {
+    padding: 160px 100px 100px;
+  }
+
+  .hero-title {
+    font-size: 5rem;
+  }
+
+  .couple-frame {
+    width: 260px;
+    height: 260px;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr);
-    padding: 0 60px;
+    padding: 0 80px;
+    gap: 30px;
   }
-  
+
   .video-grid {
     grid-template-columns: repeat(3, 1fr);
-    padding: 0 60px;
+    padding: 0 80px;
+    gap: 30px;
+  }
+
+  .section-header {
+    padding: 100px 80px 60px;
+  }
+
+  /* Fun Features 3 columns on desktop */
+  .fun-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 40px;
+  }
+
+  .fun-card {
+    padding: 35px;
+  }
+
+  .fun-card-header h3 {
+    font-size: 1.4rem;
+  }
+
+  /* Love Notes Grid */
+  .love-notes-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Better modal sizing */
+  .upload-modal-content,
+  .timeline-modal-content,
+  .love-note-modal-content {
+    max-width: 600px;
+    padding: 50px;
+  }
+
+  .lightbox-content img {
+    max-width: 85vw;
+    max-height: 85vh;
   }
 }
 
+/* Large Desktop (1200px+) */
 @media (min-width: 1200px) {
+  .navbar {
+    padding: 20px 100px;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(4, 1fr);
+    padding: 0 100px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 100px;
+  }
+
+  .section-header {
+    padding: 100px 100px 60px;
+  }
+
+  .fun-features-section {
+    padding: 100px;
+  }
+
+  .love-notes-section {
+    padding: 100px;
+  }
+
+  .timeline-section {
+    padding: 100px;
+  }
+}
+
+/* Extra Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .video-grid {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .fun-features-grid {
+    max-width: 1400px;
+  }
+}
+
+/* ===== Desktop Hover Effects & Polish ===== */
+@media (min-width: 768px) {
+  /* Gallery item hover */
+  .gallery-item {
+    cursor: pointer;
+  }
+
+  .gallery-item:hover {
+    transform: scale(1.02);
+    z-index: 10;
+  }
+
+  .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  /* Video card hover */
+  .video-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  .video-card:hover .play-button {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #e74c3c;
+  }
+
+  /* Nav links hover animation */
+  .nav-links li {
+    position: relative;
+  }
+
+  .nav-links a {
+    padding: 10px 0;
+  }
+
+  /* Upload button glow on hover */
+  .upload-btn:hover {
+    box-shadow: 0 0 30px rgba(231, 76, 60, 0.6);
+  }
+
+  /* Fun card hover improvements */
+  .fun-card {
+    cursor: default;
+  }
+
+  .fun-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(231, 76, 60, 0.25);
+  }
+
+  /* Love note hover */
+  .love-note:hover {
+    transform: rotate(0deg) scale(1.05) !important;
+    z-index: 10;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Timeline item hover */
+  .timeline-item:hover .timeline-content {
+    transform: translateX(10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Button hover improvements */
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
+  }
+
+  .heart-rain-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  .generate-date-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .challenge-complete-btn:hover:not(.completed) {
+    transform: translateY(-2px);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .gallery-item,
+  .video-card,
+  .fun-card,
+  .love-note,
+  .timeline-content,
+  .filter-btn,
+  button {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Badge hover */
+  .badge-item:not(.locked):hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Date idea display animation */
+  .date-idea-display {
+    transition: all 0.3s ease;
+  }
+
+  /* Countdown item hover */
+  .countdown-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.5);
+  }
+
+  /* Kiss button hover */
+  .kiss-btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* Mood button hover */
+  .mood-btn:hover {
+    transform: scale(1.2);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Lightbox controls */
+  .lightbox-prev,
+  .lightbox-next {
+    opacity: 0.7;
+  }
+
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Scroll button hover */
+  .scroll-btn:hover {
+    transform: translateY(5px);
+    color: #e74c3c;
+  }
+
+  /* Profile upload button hover */
+  .profile-upload-btn:hover {
+    background: #e74c3c;
+    transform: scale(1.1);
+  }
+
+  /* Action buttons on gallery */
+  .action-btn:hover {
+    transform: scale(1.15);
   }
 }
 
@@ -2744,4 +3132,467 @@ body {
   margin-top: 15px;
   object-fit: cover;
   max-height: 200px;
+}
+
+/* ===== Upload Preview ===== */
+.upload-preview {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.preview-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-item .video-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.preview-item .video-preview-placeholder i {
+  font-size: 2rem;
+  color: white;
+}
+
+.preview-item .remove-file-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(231, 76, 60, 0.9);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.preview-item:hover .remove-file-btn {
+  opacity: 1;
+}
+
+.preview-item .remove-file-btn:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+.preview-item .file-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clear-preview-btn {
+  width: 100%;
+  padding: 10px;
+  background: rgba(231, 76, 60, 0.2);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.clear-preview-btn:hover {
+  background: rgba(231, 76, 60, 0.3);
+  border-color: #e74c3c;
+}
+
+/* Mobile preview - larger images */
+@media (max-width: 768px) {
+  .preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .preview-item {
+    aspect-ratio: 1;
+    min-height: 150px;
+  }
+
+  .preview-item .remove-file-btn {
+    opacity: 1;
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .preview-item .file-name {
+    font-size: 0.75rem;
+    padding: 8px;
+  }
+}
+
+/* ===== Anniversary Countdown ===== */
+.anniversary-countdown-section {
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
+}
+
+.countdown-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.countdown-sparkles {
+  margin-bottom: 15px;
+}
+
+.countdown-sparkles i {
+  font-size: 1.2rem;
+  margin: 0 10px;
+  color: #e74c3c;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.countdown-sparkles i:nth-child(2) {
+  color: #f1c40f;
+  animation-delay: 0.5s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.countdown-container h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  padding: 15px 20px;
+  border-radius: 15px;
+  min-width: 70px;
+  box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
+}
+
+.countdown-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.heart-rain-btn {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heart-rain-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+}
+
+/* ===== Daily Challenge Card ===== */
+.challenge-card {
+  background: linear-gradient(135deg, rgba(230, 126, 34, 0.2), rgba(211, 84, 0, 0.2)) !important;
+  border-color: rgba(230, 126, 34, 0.3) !important;
+}
+
+.challenge-card .fun-card-header i {
+  color: #e67e22;
+}
+
+.challenge-content {
+  padding: 15px 0;
+}
+
+.challenge-text {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  min-height: 50px;
+}
+
+.challenge-complete-btn {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.challenge-complete-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
+.challenge-complete-btn.completed {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  cursor: default;
+}
+
+.challenge-streak {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(230, 126, 34, 0.2);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #e67e22;
+}
+
+#streak-count {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* ===== Date Idea Card ===== */
+.date-idea-card {
+  background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(142, 68, 173, 0.2)) !important;
+  border-color: rgba(155, 89, 182, 0.3) !important;
+}
+
+.date-idea-card .fun-card-header i {
+  color: #f1c40f;
+}
+
+.date-idea-display {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  margin-bottom: 15px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.date-idea-display i {
+  font-size: 1.5rem;
+  color: #9b59b6;
+  margin-bottom: 10px;
+}
+
+.date-idea-display p {
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.generate-date-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.generate-date-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+/* ===== Badges Card ===== */
+.badges-card {
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.2), rgba(243, 156, 18, 0.2)) !important;
+  border-color: rgba(241, 196, 15, 0.3) !important;
+}
+
+.badges-card .fun-card-header i {
+  color: #f1c40f;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.badge-item {
+  text-align: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.badge-item.locked {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.badge-item.unlocked {
+  animation: badgeUnlock 0.5s ease;
+}
+
+@keyframes badgeUnlock {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.badge-icon {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.badge-name {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+}
+
+/* ===== Confetti Animation ===== */
+.confetti {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  animation: confetti-fall 3s ease-out forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+/* ===== Heart Rain Animation ===== */
+.heart-rain {
+  position: fixed;
+  top: -20px;
+  font-size: 1.5rem;
+  pointer-events: none;
+  z-index: 9998;
+  animation: heart-fall 4s ease-in forwards;
+}
+
+@keyframes heart-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+/* ===== Fun Features Grid Mobile ===== */
+@media (max-width: 768px) {
+  .fun-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .countdown-timer {
+    gap: 10px;
+  }
+
+  .countdown-item {
+    padding: 12px 15px;
+    min-width: 60px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem;
+  }
+
+  .badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .badge-icon {
+    font-size: 1.5rem;
+  }
 }

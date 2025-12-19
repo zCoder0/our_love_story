@@ -85,6 +85,39 @@
     </div>
   </section>
 
+  <!-- Anniversary Countdown Section -->
+  <section class="anniversary-countdown-section">
+    <div class="countdown-container" id="anniversary-countdown">
+      <div class="countdown-sparkles">
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
+      </div>
+      <h3>💕 Next Anniversary In 💕</h3>
+      <div class="countdown-timer" id="countdown-timer">
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-days">0</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-hours">0</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-minutes">0</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="countdown-seconds">0</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+      <button class="heart-rain-btn" id="heart-rain-btn">
+        <i class="fas fa-cloud-rain"></i> Make it Rain Hearts!
+      </button>
+    </div>
+  </section>
+
   <!-- Memory of the Day Section -->
   <section class="memory-of-day-section">
     <div class="memory-of-day-container" id="memory-of-day">
@@ -393,6 +426,51 @@
           <!-- Current moods will be displayed here -->
         </div>
       </div>
+
+      <!-- Daily Love Challenge -->
+      <div class="fun-card challenge-card">
+        <div class="fun-card-header">
+          <i class="fas fa-fire"></i>
+          <h3>Daily Challenge</h3>
+        </div>
+        <div class="challenge-content" id="daily-challenge">
+          <p class="challenge-text" id="challenge-text">Loading today's challenge...</p>
+          <button class="challenge-complete-btn" id="complete-challenge-btn">
+            <i class="fas fa-check"></i> Done!
+          </button>
+        </div>
+        <div class="challenge-streak" id="challenge-streak">
+          🔥 Streak: <span id="streak-count">0</span> days
+        </div>
+      </div>
+
+      <!-- Date Idea Generator -->
+      <div class="fun-card date-idea-card">
+        <div class="fun-card-header">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Date Ideas</h3>
+        </div>
+        <div class="date-idea-content">
+          <div class="date-idea-display" id="date-idea-display">
+            <i class="fas fa-heart"></i>
+            <p>Click to get a date idea!</p>
+          </div>
+          <button class="generate-date-btn" id="generate-date-btn">
+            <i class="fas fa-dice"></i> Random Date Idea
+          </button>
+        </div>
+      </div>
+
+      <!-- Milestone Badges -->
+      <div class="fun-card badges-card">
+        <div class="fun-card-header">
+          <i class="fas fa-award"></i>
+          <h3>Our Badges</h3>
+        </div>
+        <div class="badges-grid" id="badges-grid">
+          <!-- Badges will be loaded here -->
+        </div>
+      </div>
     </div>
   </section>
 
@@ -565,6 +643,12 @@
         <span>or</span>
         <button class="browse-btn">Browse Files</button>
         <input type="file" id="file-input" multiple accept="image/*,video/*" hidden>
+      </div>
+      <div class="upload-preview" id="upload-preview" style="display: none;">
+        <div class="preview-grid" id="preview-grid"></div>
+        <button type="button" class="clear-preview-btn" id="clear-preview-btn">
+          <i class="fas fa-times"></i> Clear Selection
+        </button>
       </div>
       <div class="upload-options">
         <div class="option-group">

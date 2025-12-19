@@ -610,36 +610,94 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===== Upload Modal =====
-const uploadBtn = document.querySelector('.upload-btn');
-const uploadModal = document.getElementById('upload-modal');
-const uploadModalClose = document.getElementById('upload-modal-close');
-const dropzone = document.getElementById('dropzone');
-const browseBtn = document.querySelector('.browse-btn');
-const fileInput = document.getElementById('file-input');
-const uploadSubmitBtn = document.querySelector('.upload-submit-btn');
-
+let uploadBtn, uploadModal, uploadModalClose, dropzone, browseBtn, fileInput, uploadSubmitBtn;
 let selectedFiles = [];
 
-if (uploadBtn) {
-  uploadBtn.addEventListener('click', () => {
-    uploadModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  });
+function initializeUploadElements() {
+  uploadBtn = document.querySelector('.upload-btn');
+  uploadModal = document.getElementById('upload-modal');
+  uploadModalClose = document.getElementById('upload-modal-close');
+  dropzone = document.getElementById('dropzone');
+  browseBtn = document.querySelector('.browse-btn');
+  fileInput = document.getElementById('file-input');
+  uploadSubmitBtn = document.querySelector('#upload-modal .upload-submit-btn');
+  
+  // Initialize upload event listeners
+  initializeUploadListeners();
 }
 
-if (uploadModalClose) {
-  uploadModalClose.addEventListener('click', () => {
-    closeUploadModal();
-  });
+function initializeUploadListeners() {
+  // Upload button click
+  if (uploadBtn) {
+    uploadBtn.addEventListener('click', () => {
+      if (uploadModal) {
+        uploadModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  }
+  
+  // Close modal
+  if (uploadModalClose) {
+    uploadModalClose.addEventListener('click', closeUploadModal);
+  }
+  
+  if (uploadModal) {
+    uploadModal.addEventListener('click', (e) => {
+      if (e.target === uploadModal) closeUploadModal();
+    });
+  }
+  
+  // Browse button
+  if (browseBtn) {
+    browseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (fileInput) fileInput.click();
+    });
+  }
+  
+  // Dropzone
+  if (dropzone) {
+    dropzone.addEventListener('click', () => {
+      if (fileInput) fileInput.click();
+    });
+    
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('dragover');
+    });
+    
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+  }
+  
+  // File input
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+  }
+  
+  // Upload submit button
+  if (uploadSubmitBtn) {
+    uploadSubmitBtn.addEventListener('click', handleUploadSubmit);
+  }
+
+  // Clear preview button
+  const clearPreviewBtn = document.getElementById('clear-preview-btn');
+  if (clearPreviewBtn) {
+    clearPreviewBtn.addEventListener('click', clearPreviews);
+  }
 }
 
-if (uploadModal) {
-  uploadModal.addEventListener('click', (e) => {
-    if (e.target === uploadModal) {
-      closeUploadModal();
-    }
-  });
-}
+// Upload event listeners are now initialized in initializeUploadListeners()
 
 function closeUploadModal() {
   uploadModal.classList.remove('active');
@@ -654,43 +712,15 @@ function resetUploadForm() {
     dropzone.querySelector('i').className = 'fas fa-images';
   }
   if (fileInput) fileInput.value = '';
+
+  // Clear previews
+  const previewContainer = document.getElementById('upload-preview');
+  const previewGrid = document.getElementById('preview-grid');
+  if (previewContainer) previewContainer.style.display = 'none';
+  if (previewGrid) previewGrid.innerHTML = '';
 }
 
-if (browseBtn) {
-  browseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    fileInput.click();
-  });
-}
-
-// Drag and drop + click to select
-if (dropzone) {
-  // Click anywhere on dropzone to select files
-  dropzone.addEventListener('click', () => {
-    fileInput.click();
-  });
-
-  dropzone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropzone.classList.add('dragover');
-  });
-
-  dropzone.addEventListener('dragleave', () => {
-    dropzone.classList.remove('dragover');
-  });
-
-  dropzone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropzone.classList.remove('dragover');
-    handleFiles(e.dataTransfer.files);
-  });
-}
-
-if (fileInput) {
-  fileInput.addEventListener('change', (e) => {
-    handleFiles(e.target.files);
-  });
-}
+// File handling event listeners are now in initializeUploadListeners()
 
 function handleFiles(files) {
   selectedFiles = Array.from(files);
@@ -699,71 +729,159 @@ function handleFiles(files) {
     const sizeInMB = (totalSize / (1024 * 1024)).toFixed(1);
     dropzone.querySelector('p').textContent = `Selected: ${selectedFiles.length} file(s) (${sizeInMB}MB)`;
     dropzone.querySelector('i').className = 'fas fa-check-circle';
+
+    // Show image previews
+    showPreviews(selectedFiles);
   }
 }
 
-// Upload submit
-if (uploadSubmitBtn) {
-  uploadSubmitBtn.addEventListener('click', async () => {
-    if (selectedFiles.length === 0) {
-      alert('Please select files to upload');
+// Preview grid event listener (added once)
+let previewGridListenerAdded = false;
+
+function showPreviews(files) {
+  const previewContainer = document.getElementById('upload-preview');
+  const previewGrid = document.getElementById('preview-grid');
+
+  if (!previewContainer || !previewGrid) return;
+
+  previewGrid.innerHTML = '';
+  previewContainer.style.display = 'block';
+
+  files.forEach((file, index) => {
+    const previewItem = document.createElement('div');
+    previewItem.className = 'preview-item';
+
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewItem.innerHTML = `
+          <img src="${e.target.result}" alt="Preview">
+          <button type="button" class="remove-file-btn" data-index="${index}">
+            <i class="fas fa-times"></i>
+          </button>
+          <span class="file-name">${file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name}</span>
+        `;
+      };
+      reader.readAsDataURL(file);
+    } else if (file.type.startsWith('video/')) {
+      previewItem.innerHTML = `
+        <div class="video-preview-placeholder">
+          <i class="fas fa-video"></i>
+        </div>
+        <button type="button" class="remove-file-btn" data-index="${index}">
+          <i class="fas fa-times"></i>
+        </button>
+        <span class="file-name">${file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name}</span>
+      `;
+    }
+
+    previewGrid.appendChild(previewItem);
+  });
+
+  // Add click handler only once
+  if (!previewGridListenerAdded) {
+    previewGrid.addEventListener('click', (e) => {
+      if (e.target.closest('.remove-file-btn')) {
+        const index = parseInt(e.target.closest('.remove-file-btn').dataset.index);
+        removeFile(index);
+      }
+    });
+    previewGridListenerAdded = true;
+  }
+}
+
+function removeFile(index) {
+  selectedFiles.splice(index, 1);
+
+  if (selectedFiles.length === 0) {
+    clearPreviews();
+  } else {
+    showPreviews(selectedFiles);
+    const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+    const sizeInMB = (totalSize / (1024 * 1024)).toFixed(1);
+    dropzone.querySelector('p').textContent = `Selected: ${selectedFiles.length} file(s) (${sizeInMB}MB)`;
+  }
+}
+
+function clearPreviews() {
+  const previewContainer = document.getElementById('upload-preview');
+  const previewGrid = document.getElementById('preview-grid');
+
+  if (previewContainer) previewContainer.style.display = 'none';
+  if (previewGrid) previewGrid.innerHTML = '';
+
+  selectedFiles = [];
+  if (dropzone) {
+    dropzone.querySelector('p').textContent = 'Drag & drop your files here';
+    dropzone.querySelector('i').className = 'fas fa-images';
+  }
+  if (fileInput) fileInput.value = '';
+}
+
+// Upload submit handler
+async function handleUploadSubmit() {
+  if (selectedFiles.length === 0) {
+    alert('Please select files to upload');
+    return;
+  }
+
+  const category = document.querySelector('.upload-options select').value;
+  const caption = document.querySelector('.upload-options input[type="text"]').value;
+
+  uploadSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+  uploadSubmitBtn.disabled = true;
+
+  try {
+    // Check file sizes (max 10MB per file)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    const oversizedFiles = selectedFiles.filter(file => file.size > maxSize);
+    
+    if (oversizedFiles.length > 0) {
+      alert(`Some files are too large (max 10MB). Please compress them first.`);
       return;
     }
+    
+    const formData = new FormData();
 
-    const category = document.querySelector('.upload-options select').value;
-    const caption = document.querySelector('.upload-options input[type="text"]').value;
-
-    uploadSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
-    uploadSubmitBtn.disabled = true;
-
-    try {
-      // Check file sizes (max 10MB per file)
-      const maxSize = 10 * 1024 * 1024; // 10MB
-      const oversizedFiles = selectedFiles.filter(file => file.size > maxSize);
-      
-      if (oversizedFiles.length > 0) {
-        alert(`Some files are too large (max 10MB). Please compress them first.`);
-        return;
-      }
-      
-      const formData = new FormData();
-
-      for (const file of selectedFiles) {
-        formData.append('files', file);
-      }
-      formData.append('category', category.toLowerCase());
-      formData.append('caption', caption);
-
-      const response = await fetch(`${API_BASE}/api/upload-multiple`, {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-
-      const successCount = data.results.filter(r => r.success).length;
-      
-      if (successCount === selectedFiles.length) {
-        alert(`Successfully uploaded all ${selectedFiles.length} files! 🎉`);
-      } else {
-        alert(`Uploaded ${successCount} of ${selectedFiles.length} files. Some files may have failed.`);
-      }
-
-      closeUploadModal();
-
-      // Reload gallery and stats
-      loadGallery();
-      loadVideos();
-      loadStats();
-
-    } catch (error) {
-      console.error('Upload failed:', error);
-      alert('Upload failed. Please check your connection and try again.');
-    } finally {
-      uploadSubmitBtn.innerHTML = '<i class="fas fa-heart"></i> Save Memory';
-      uploadSubmitBtn.disabled = false;
+    for (const file of selectedFiles) {
+      formData.append('files', file);
     }
-  });
+    formData.append('category', category.toLowerCase());
+    formData.append('caption', caption);
+
+    const response = await fetch(`${API_BASE}/api/upload-multiple`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+
+    const successCount = data.results.filter(r => r.success).length;
+
+    if (successCount === selectedFiles.length) {
+      // Trigger confetti celebration!
+      if (typeof triggerConfetti === 'function') {
+        triggerConfetti();
+      }
+      showSurpriseMessage('🎉 Memories Saved!', `Successfully uploaded ${selectedFiles.length} file(s)!`);
+    } else {
+      alert(`Uploaded ${successCount} of ${selectedFiles.length} files. Some files may have failed.`);
+    }
+
+    closeUploadModal();
+
+    // Reload gallery and stats
+    loadGallery();
+    loadVideos();
+    loadStats();
+
+  } catch (error) {
+    console.error('Upload failed:', error);
+    alert('Upload failed. Please check your connection and try again.');
+  } finally {
+    uploadSubmitBtn.innerHTML = '<i class="fas fa-heart"></i> Save Memory';
+    uploadSubmitBtn.disabled = false;
+  }
 }
 
 // ===== Load More Button =====
@@ -1658,6 +1776,13 @@ function showRandomSurprise() {
 
 // ===== Initialize on Load =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize upload elements
+  initializeUploadElements();
+  
+  // Debug: Check if upload elements exist
+  console.log('Upload button found:', !!uploadBtn);
+  console.log('Upload modal found:', !!uploadModal);
+  
   // Check if user identity is set, if not show selection modal
   if (!currentUserIdentity) {
     setTimeout(() => showUserSelection(), 1000);
@@ -1770,11 +1895,362 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('.mood-btn')) {
     const moodBtn = e.target.closest('.mood-btn');
     const mood = moodBtn.dataset.mood;
-    
+
     // Update active state
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
     moodBtn.classList.add('active');
-    
+
     setMood(mood);
   }
+});
+
+// ===== Anniversary Countdown =====
+let countdownInterval;
+
+function startAnniversaryCountdown() {
+  const daysEl = document.getElementById('countdown-days');
+  const hoursEl = document.getElementById('countdown-hours');
+  const minutesEl = document.getElementById('countdown-minutes');
+  const secondsEl = document.getElementById('countdown-seconds');
+
+  if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+  function updateCountdown() {
+    // Get anniversary date from user data or use default
+    let anniversaryDate = new Date();
+    const anniversaryText = document.getElementById('anniversary-date')?.textContent;
+
+    if (anniversaryText && currentUser?.anniversary) {
+      anniversaryDate = new Date(currentUser.anniversary);
+    } else if (anniversaryText) {
+      try {
+        anniversaryDate = new Date(anniversaryText);
+      } catch(e) {
+        anniversaryDate = new Date('2025-01-14');
+      }
+    }
+
+    // Calculate next anniversary
+    const now = new Date();
+    let nextAnniversary = new Date(now.getFullYear(), anniversaryDate.getMonth(), anniversaryDate.getDate());
+
+    if (nextAnniversary <= now) {
+      nextAnniversary.setFullYear(now.getFullYear() + 1);
+    }
+
+    const diff = nextAnniversary - now;
+
+    if (diff <= 0) {
+      // It's the anniversary!
+      daysEl.textContent = '0';
+      hoursEl.textContent = '0';
+      minutesEl.textContent = '0';
+      secondsEl.textContent = '0';
+      document.querySelector('.countdown-container h3').textContent = '🎉 Happy Anniversary! 🎉';
+      triggerConfetti();
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    daysEl.textContent = days;
+    hoursEl.textContent = hours;
+    minutesEl.textContent = minutes;
+    secondsEl.textContent = seconds;
+  }
+
+  updateCountdown();
+  countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+// ===== Heart Rain Animation =====
+function triggerHeartRain() {
+  const hearts = ['❤️', '💕', '💖', '💗', '💓', '💘', '💝', '🥰', '😍'];
+  const rainCount = 50;
+
+  for (let i = 0; i < rainCount; i++) {
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart-rain';
+      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+      heart.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }, i * 100);
+  }
+}
+
+// Heart rain button
+const heartRainBtn = document.getElementById('heart-rain-btn');
+if (heartRainBtn) {
+  heartRainBtn.addEventListener('click', () => {
+    triggerHeartRain();
+    showSurpriseMessage('💕 Love is in the air!', 'Hearts are falling just for you two!');
+  });
+}
+
+// ===== Confetti Animation =====
+function triggerConfetti() {
+  const colors = ['#e74c3c', '#f1c40f', '#9b59b6', '#3498db', '#2ecc71', '#ff6b9d'];
+  const confettiCount = 100;
+
+  for (let i = 0; i < confettiCount; i++) {
+    setTimeout(() => {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.width = (5 + Math.random() * 10) + 'px';
+      confetti.style.height = (5 + Math.random() * 10) + 'px';
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 4000);
+    }, i * 30);
+  }
+}
+
+// ===== Daily Love Challenges =====
+const loveChallenges = [
+  "Give your partner 3 genuine compliments today 💬",
+  "Write a short love note and hide it somewhere they'll find 📝",
+  "Cook or order their favorite meal together 🍽️",
+  "Share 5 things you love about them ❤️",
+  "Take a silly selfie together 📸",
+  "Give a 5-minute massage 💆",
+  "Dance together to your song 💃🕺",
+  "Watch the sunset or sunrise together 🌅",
+  "Plan a surprise date for next week 📅",
+  "Send a sweet good morning text 🌞",
+  "Hold hands for 10 minutes while talking 🤝",
+  "Share a childhood memory with each other 👶",
+  "Try something new together today 🆕",
+  "Write down 3 goals for your relationship 🎯",
+  "Give a warm 30-second hug 🤗",
+  "Play a game together (board game, video game, etc.) 🎮",
+  "Make a playlist of songs that remind you of them 🎵",
+  "Take a walk together without phones 🚶",
+  "Share what you're grateful for about each other 🙏",
+  "Look through old photos together 📷",
+  "Leave a sweet voicemail for them 📱",
+  "Recreate your first date 💑",
+  "Learn something new about each other 🧠",
+  "Make a fun TikTok or video together 📹",
+  "Stargaze together tonight ⭐",
+  "Cook breakfast in bed 🥞",
+  "Give butterfly kisses 🦋",
+  "Create a bucket list together 📋",
+  "Tell them why you fell in love with them 💘",
+  "Plan your dream vacation together ✈️"
+];
+
+function loadDailyChallenge() {
+  const challengeText = document.getElementById('challenge-text');
+  const completeBtn = document.getElementById('complete-challenge-btn');
+  const streakCount = document.getElementById('streak-count');
+
+  if (!challengeText) return;
+
+  // Get today's challenge based on date
+  const today = new Date();
+  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const challengeIndex = dayOfYear % loveChallenges.length;
+
+  challengeText.textContent = loveChallenges[challengeIndex];
+
+  // Check if already completed today
+  const lastCompleted = localStorage.getItem('lastChallengeCompleted');
+  const todayStr = today.toDateString();
+
+  if (lastCompleted === todayStr) {
+    completeBtn.classList.add('completed');
+    completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed!';
+    completeBtn.disabled = true;
+  }
+
+  // Load streak
+  const streak = parseInt(localStorage.getItem('challengeStreak') || '0');
+  if (streakCount) streakCount.textContent = streak;
+}
+
+function completeChallenge() {
+  const completeBtn = document.getElementById('complete-challenge-btn');
+  const streakCount = document.getElementById('streak-count');
+
+  if (!completeBtn || completeBtn.classList.contains('completed')) return;
+
+  const today = new Date();
+  const todayStr = today.toDateString();
+  const lastCompleted = localStorage.getItem('lastChallengeCompleted');
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  // Calculate streak
+  let streak = parseInt(localStorage.getItem('challengeStreak') || '0');
+
+  if (lastCompleted === yesterday.toDateString()) {
+    streak++;
+  } else if (lastCompleted !== todayStr) {
+    streak = 1;
+  }
+
+  localStorage.setItem('challengeStreak', streak.toString());
+  localStorage.setItem('lastChallengeCompleted', todayStr);
+
+  if (streakCount) streakCount.textContent = streak;
+
+  completeBtn.classList.add('completed');
+  completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed!';
+  completeBtn.disabled = true;
+
+  // Celebration
+  triggerConfetti();
+  showSurpriseMessage('🎉 Challenge Complete!', `Amazing! Your streak is now ${streak} days!`);
+}
+
+// Challenge button listener
+const completeChallengeBtn = document.getElementById('complete-challenge-btn');
+if (completeChallengeBtn) {
+  completeChallengeBtn.addEventListener('click', completeChallenge);
+}
+
+// ===== Date Idea Generator =====
+const dateIdeas = [
+  { idea: "Picnic in the park 🧺", type: "outdoor" },
+  { idea: "Movie marathon night at home 🎬", type: "home" },
+  { idea: "Cook a new recipe together 👨‍🍳", type: "home" },
+  { idea: "Visit a local museum or art gallery 🎨", type: "adventure" },
+  { idea: "Sunset beach walk 🌅", type: "outdoor" },
+  { idea: "Game night with snacks 🎮", type: "home" },
+  { idea: "Try a new restaurant 🍽️", type: "food" },
+  { idea: "Go stargazing ⭐", type: "outdoor" },
+  { idea: "Take a day trip to nearby city 🚗", type: "adventure" },
+  { idea: "Spa day at home 🧖", type: "home" },
+  { idea: "Karaoke night 🎤", type: "fun" },
+  { idea: "Build a blanket fort 🏰", type: "home" },
+  { idea: "Go bowling 🎳", type: "fun" },
+  { idea: "Have a breakfast date 🥞", type: "food" },
+  { idea: "Take a dance class 💃", type: "adventure" },
+  { idea: "Visit a botanical garden 🌸", type: "outdoor" },
+  { idea: "Coffee shop hopping ☕", type: "food" },
+  { idea: "Photo walk around the city 📸", type: "adventure" },
+  { idea: "Board game cafe 🎲", type: "fun" },
+  { idea: "Make homemade pizza 🍕", type: "home" },
+  { idea: "Watch sunrise together 🌄", type: "outdoor" },
+  { idea: "Go to an escape room 🔐", type: "adventure" },
+  { idea: "Ice cream date 🍦", type: "food" },
+  { idea: "Mini golf 🏌️", type: "fun" },
+  { idea: "Paint night together 🎨", type: "home" },
+  { idea: "Farmers market visit 🥕", type: "outdoor" },
+  { idea: "Bike ride around town 🚴", type: "outdoor" },
+  { idea: "Attend a local event/festival 🎪", type: "adventure" },
+  { idea: "Make dessert together 🍰", type: "home" },
+  { idea: "Candlelight dinner at home 🕯️", type: "home" }
+];
+
+function generateDateIdea() {
+  const display = document.getElementById('date-idea-display');
+  if (!display) return;
+
+  const randomIdea = dateIdeas[Math.floor(Math.random() * dateIdeas.length)];
+
+  // Add spinning animation
+  display.style.transform = 'rotateY(180deg)';
+  display.style.opacity = '0';
+
+  setTimeout(() => {
+    display.innerHTML = `
+      <i class="fas fa-heart" style="color: #e74c3c;"></i>
+      <p>${randomIdea.idea}</p>
+    `;
+    display.style.transform = 'rotateY(0deg)';
+    display.style.opacity = '1';
+  }, 200);
+}
+
+// Date idea button
+const generateDateBtn = document.getElementById('generate-date-btn');
+if (generateDateBtn) {
+  generateDateBtn.addEventListener('click', generateDateIdea);
+}
+
+// ===== Milestone Badges =====
+const milestones = [
+  { id: 'first_photo', icon: '📸', name: 'First Photo', condition: (stats) => stats.images >= 1 },
+  { id: 'photo_lover', icon: '🖼️', name: '10 Photos', condition: (stats) => stats.images >= 10 },
+  { id: 'photographer', icon: '📷', name: '50 Photos', condition: (stats) => stats.images >= 50 },
+  { id: 'first_video', icon: '🎬', name: 'First Video', condition: (stats) => stats.videos >= 1 },
+  { id: 'first_note', icon: '💌', name: 'Love Note', condition: (stats) => stats.notes >= 1 },
+  { id: 'note_writer', icon: '✉️', name: '10 Notes', condition: (stats) => stats.notes >= 10 },
+  { id: 'first_kiss', icon: '💋', name: 'First Kiss', condition: (stats) => stats.kisses >= 1 },
+  { id: 'kiss_master', icon: '😘', name: '50 Kisses', condition: (stats) => stats.kisses >= 50 },
+  { id: 'week_together', icon: '📅', name: '1 Week', condition: (stats) => stats.days >= 7 },
+  { id: 'month_together', icon: '🗓️', name: '1 Month', condition: (stats) => stats.days >= 30 },
+  { id: 'year_together', icon: '🎂', name: '1 Year', condition: (stats) => stats.days >= 365 },
+  { id: 'milestone_king', icon: '👑', name: 'Milestone', condition: (stats) => stats.timeline >= 5 }
+];
+
+async function loadBadges() {
+  const badgesGrid = document.getElementById('badges-grid');
+  if (!badgesGrid) return;
+
+  try {
+    // Get stats
+    const statsResponse = await fetch(`${API_BASE}/api/stats`);
+    const stats = await statsResponse.json();
+
+    const notesResponse = await fetch(`${API_BASE}/api/notes`);
+    const notesData = await notesResponse.json();
+
+    const kissesResponse = await fetch(`${API_BASE}/api/kisses`);
+    const kissesData = await kissesResponse.json();
+
+    const timelineResponse = await fetch(`${API_BASE}/api/timeline`);
+    const timelineData = await timelineResponse.json();
+
+    const fullStats = {
+      images: stats.images || 0,
+      videos: stats.videos || 0,
+      days: stats.days_together || 0,
+      notes: notesData.notes?.length || 0,
+      kisses: kissesData.kisses?.length || 0,
+      timeline: timelineData.events?.length || 0
+    };
+
+    badgesGrid.innerHTML = '';
+
+    milestones.forEach(milestone => {
+      const isUnlocked = milestone.condition(fullStats);
+      const badgeDiv = document.createElement('div');
+      badgeDiv.className = `badge-item ${isUnlocked ? 'unlocked' : 'locked'}`;
+      badgeDiv.innerHTML = `
+        <span class="badge-icon">${milestone.icon}</span>
+        <span class="badge-name">${milestone.name}</span>
+      `;
+      badgesGrid.appendChild(badgeDiv);
+    });
+  } catch (error) {
+    console.error('Failed to load badges:', error);
+    badgesGrid.innerHTML = '<p style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Loading badges...</p>';
+  }
+}
+
+// Initialize new features on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Start countdown
+  setTimeout(startAnniversaryCountdown, 1000);
+
+  // Load challenge
+  loadDailyChallenge();
+
+  // Load badges
+  setTimeout(loadBadges, 500);
 });
